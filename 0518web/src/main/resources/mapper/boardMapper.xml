@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shlee.mapper.boardMapper">
+
+	<insert id="boardWrite">
+  		<![CDATA[
+	INSERT INTO TB_BOARD_DEMO(BIDX, TITLE, CONTENTS, USERID, WRITEDATE, MODDATE) VALUES(BOARD_SEQ.NEXTVAL, #{title}, #{contents}, #{userId}, sysdate, sysdate)
+  		]]>
+	</insert>
+
+	<select id="boardList"  resultType="com.shlee.domain.board.BoardVO">
+	<![CDATA[
+	SELECT BIDX, TITLE, USERID, HITCNT, WRITEDATE FROM TB_BOARD_DEMO ORDER BY BIDX DESC
+	]]>
+	</select>
+
+	<select id="boardContents" resultType="com.shlee.domain.board.BoardVO">
+	<![CDATA[
+SELECT BIDX, TITLE, CONTENTS, USERID, HITCNT, WRITEDATE FROM TB_BOARD_DEMO WHERE BIDX = #{bidx}
+	]]>
+	</select>
+
+	<delete id="boardDelete">
+	<![CDATA[
+	DELETE FROM TB_BOARD_DEMO WHERE BIDX = #{bidx}
+	]]>
+	</delete>
+
+	<update id="updateHitcount">
+		<![CDATA[
+UPDATE TB_BOARD_DEMO SET HITCNT = HITCNT+1 WHERE bidx = #{bidx}
+	]]>
+	</update>
+
+	<update id="boardModify">
+		<![CDATA[
+UPDATE TB_BOARD_DEMO SET TITLE=#{title}, CONTENTS=#{contents}, MODDATE=SYSDATE WHERE BIDX = #{bidx}
+	]]>
+	</update>
+
+
+
+</mapper>
+  
