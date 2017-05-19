@@ -16,22 +16,17 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		logger.info("-----board preHandle-----");
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(false); //false 로 둬야 없을 때 새로 만들지 않
 		String requestPage = request.getRequestURL().toString();
 		String loginPage = "../login";
-		Boolean loginStatus = false;
-		System.out.println(requestPage);
+		System.out.println("client's request page : "+requestPage);
 		
-		if (session == null) {
-			request.getSession().setAttribute("requestPage", requestPage);
-			response.sendRedirect(loginPage);
-			return false;
+		boolean isLogin = false;
+		if(request.getSession().getAttribute("isLogin")!=null){
+			isLogin=true;
 		}
 		
-		loginStatus = (Boolean) request.getSession().getAttribute("loginStatus");
-		System.out.println(loginStatus);
-		System.out.println(false);
-		if (!loginStatus) {
+		if (session == null || !isLogin) {
 			request.getSession().setAttribute("requestPage", requestPage);
 			response.sendRedirect(loginPage);
 			return false;

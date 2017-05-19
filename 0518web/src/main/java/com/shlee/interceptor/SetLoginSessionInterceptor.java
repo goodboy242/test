@@ -25,8 +25,8 @@ public class SetLoginSessionInterceptor extends HandlerInterceptorAdapter {
 		String requestPage = request.getSession().getAttribute("requestPage").toString();
 		System.out.println(requestPage);
 		
-		if (userId != null || !userId.isEmpty()) {
-			modelAndView.getModel().put("loginStatus", true);
+		if (userId != null || !userId.isEmpty()) { // login 성공 시
+			modelAndView.getModel().put("isLogin", true);
 			response.sendRedirect(requestPage);
 //			modelAndView.setViewName(requestPage); // 뷰 변경
 		}
