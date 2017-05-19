@@ -1,0 +1,75 @@
+package getTistory;
+
+import java.awt.Frame;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class GetTistory {
+
+	static Frame frame = new Frame("티스토리! 널 가지겠어");
+
+	
+	public static void main(String[] args) throws InterruptedException {
+
+		frame.setSize(1000, 1000);
+		String target = "http://www.tistory.com/invitation";
+//		String target = "http://localhost:8080/web/b";
+		
+//      goodboy242@daum.net  안녕하세요 
+		
+		System.out.println(getHttpHTML(target));
+		String contents = getHttpHTML(target);
+		System.out.println("started");
+		
+		
+//		int i = contents.indexOf("<h3 class=\"screen_out\">POST ON BOARD");
+//		System.out.println(i);
+		
+		
+		while(true){
+			Thread.sleep(3000); 
+			String contents2 = getHttpHTML(target);
+			
+			if(contents.equals(contents2)){
+				System.out.println("no change wait again...");
+			}else{
+				System.out.println("changed alerting!!!");
+				frame.setVisible(true);
+				break;
+			}
+		}
+		
+		
+	
+	
+	}
+
+	public static String getHttpHTML(String urlToRead) {
+
+		URL url;
+		HttpURLConnection conn;
+		BufferedReader rd;
+		String line;
+		String result = "";
+		try {
+			url = new URL(urlToRead);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = rd.readLine()) != null) {
+				result += line + "\n";
+			}
+			rd.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+//		return result;
+		return result.substring(5000, 15000);
+	}
+
+}
