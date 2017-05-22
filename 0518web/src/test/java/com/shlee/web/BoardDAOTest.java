@@ -25,11 +25,11 @@ public class BoardDAOTest {
 	@Test
 	public void testBoardWrite() throws SQLException {
 		HashMap<String, String> hashMap = new HashMap<>();
-		hashMap.put("title", "this is title");
-		hashMap.put("contents", "thisefefef is contents");
-		hashMap.put("userid", "lsh");
+		hashMap.put("title", "this 777777 title");
+		hashMap.put("contents", "thisefefef is c7777777ontents");
+		hashMap.put("userId", "lsh");
 		
-//		int result = boardDAO.boardWrite(hashMap);
+		int result = boardDAO.boardWrite(hashMap);
 //		System.out.println(result);
 	}
 

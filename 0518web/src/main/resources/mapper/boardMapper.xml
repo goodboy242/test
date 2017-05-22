@@ -13,7 +13,7 @@
 
 	<select id="boardList"  resultType="com.shlee.domain.board.BoardVO">
 	<![CDATA[
-	SELECT BIDX, TITLE, USERID, HITCNT, WRITEDATE FROM TB_BOARD_DEMO ORDER BY BIDX DESC
+	SELECT BIDX, TITLE, CONTENTS, USERID, HITCNT, WRITEDATE FROM TB_BOARD_DEMO ORDER BY BIDX DESC
 	]]>
 	</select>
 
@@ -31,13 +31,13 @@ SELECT BIDX, TITLE, CONTENTS, USERID, HITCNT, WRITEDATE FROM TB_BOARD_DEMO WHERE
 
 	<update id="updateHitcount">
 		<![CDATA[
-UPDATE TB_BOARD_DEMO SET HITCNT = HITCNT+1 WHERE bidx = #{bidx}
+UPDATE TB_BOARD_DEMO SET HITCNT = HITCNT+1 WHERE bidx = #{bidx} and userid = #{userId}
 	]]>
 	</update>
 
 	<update id="boardModify">
 		<![CDATA[
-UPDATE TB_BOARD_DEMO SET TITLE=#{title}, CONTENTS=#{contents}, MODDATE=SYSDATE WHERE BIDX = #{bidx}
+UPDATE TB_BOARD_DEMO SET TITLE=#{title}, CONTENTS=#{contents}, MODDATE=SYSDATE WHERE BIDX = #{bidx} and userid = #{userId}
 	]]>
 	</update>
 

@@ -11,10 +11,10 @@ public class BoardVO {
 
 	@Override
 	public String toString() {
-		if(contents==null||contents.isEmpty()){
-			return "BoardVO [bidx=" + bidx + ", title=" + title  + ", userId=" + userId
-					+ ", hitcnt=" + hitcnt + ", writedate=" + writedate + "]";
-		}
+//		if(contents==null||contents.isEmpty()){
+//			return "BoardVO [bidx=" + bidx + ", title=" + title  + ", userId=" + userId
+//					+ ", hitcnt=" + hitcnt + ", writedate=" + writedate + "]";
+//		}
 		
 		return "BoardVO [bidx=" + bidx + ", title=" + title + ", contents=" + contents + ", userId=" + userId
 				+ ", hitcnt=" + hitcnt + ", writedate=" + writedate + "]";

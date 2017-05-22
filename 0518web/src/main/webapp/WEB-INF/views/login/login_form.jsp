@@ -1,6 +1,6 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,7 +27,7 @@
 			</div>
 			<div class="col-md-3">
 				<div class="login-box well">
-					<form role="form" method="post" action="/web/loginchk">
+					<form role="form" method="post" action="/loginchk">
 						<legend>로그인</legend>
 						<div class="form-group">
 							<label for="userId">이메일 or 아이디</label> <input name="userId"
@@ -38,6 +38,9 @@
 							<label for="password">비밀번호</label> <input name="userPw"
 								id="password" value='' placeholder="Password" type="password"
 								class="form-control" />
+						</div>
+						<div class="form-group">
+							 <input type="hidden" name="requestPage" value=${ requestScope.requestPage} />
 						</div>
 						<div class="form-group">
 							<input type="submit"

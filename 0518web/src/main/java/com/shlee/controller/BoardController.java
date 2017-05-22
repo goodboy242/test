@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,43 +28,48 @@ public class BoardController {
 	@Autowired
 	private IBoardService boardService;
 
+	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
+//	@ResponseBody
+	public String boardList(Model model) throws SQLException {
+		System.out.println("List request******");
+		List<BoardVO> list = boardService.boardList();
+		model.addAttribute("boardList", list);
+//		return  boardFolder+"boardListXX";
+		return "main2";
+	}
+
+	@RequestMapping(value = "/board/article", method = RequestMethod.GET)
+//	@ResponseBody
+	public String boardContents(@ModelAttribute("bidx") String bidx, Model model) throws SQLException {
+		System.out.println("Article request******");
+		BoardVO boardVO = boardService.boardContents(bidx);
+		System.out.println(boardVO);
+		model.addAttribute("boardVO", boardVO);
+		return  boardFolder+"board_article";
+	}
+
 	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
 	public String writePage() {
 		logger.info("****************writing request****************");
 		System.out.println("write request******");
 		return boardFolder+"write_form";
 	}
-
+	
 	@RequestMapping(value = "/board/write_complete", method = RequestMethod.POST)
-	public String boardWrite(@RequestParam HashMap<String, String> hashMap, Model model) throws SQLException {
-		hashMap.put("userid", "lsh"); // userID param !!!!!!
+	public String boardWrite(@RequestParam HashMap<String, String> hashMap, HttpServletRequest request) throws SQLException {
+		hashMap.put("userId", request.getSession().getAttribute("userId").toString()); 
 		boardService.boardWrite(hashMap);
-		model.addAttribute("boardData", hashMap);
-		return boardFolder+"board";
-	}
+		String url = "redirect:/board/list";
 
-	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
-	@ResponseBody
-	public List<BoardVO> boardList() throws SQLException {
-		System.out.println("List request******");
-		List<BoardVO> list = boardService.boardList();
-		return list;
+		return url;
 	}
-
-	@RequestMapping(value = "/board/contents", method = RequestMethod.GET)
-	@ResponseBody
-	public BoardVO boardContents(@ModelAttribute("bidx") String bidx) throws SQLException {
-		System.out.println("Contents request******");
-		BoardVO boardVO = boardService.boardContents(bidx);
-		return boardVO;
-	}
-
+	
 	@RequestMapping(value = "/board/delete", method = RequestMethod.GET)
 	public String boardDelete(@ModelAttribute("bidx") String bidx) throws SQLException {
 		System.out.println("Delete request******");
 		boardService.boardDelete(bidx);
 		
-		String url = "redirect:/board/list/";
+		String url = "redirect:/board/list";
 
 		return url;
 	}
@@ -78,8 +85,9 @@ public class BoardController {
 		hashMap.put("userid", "lsh"); // userID param !!!!!!
 		hashMap.put("bidx", "20"); // userID param !!!!!!
 		boardService.boardModify(hashMap);
-		model.addAttribute("boardData", hashMap);
-		return boardFolder+"board";
+		String url = "redirect:/board/list";
+
+		return url;
 	}
 
 }

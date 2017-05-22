@@ -1,5 +1,6 @@
 package com.shlee.interceptor;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -22,13 +23,17 @@ public class LoginCheckInterceptor extends HandlerInterceptorAdapter {
 		System.out.println("client's request page : "+requestPage);
 		
 		boolean isLogin = false;
-		if(request.getSession().getAttribute("isLogin")!=null){
+		if(request.getSession().getAttribute("userId")!=null){
 			isLogin=true;
 		}
 		
 		if (session == null || !isLogin) {
-			request.getSession().setAttribute("requestPage", requestPage);
-			response.sendRedirect(loginPage);
+			System.out.println("has no session for this id");
+			request.setAttribute("requestPage", requestPage);
+//			response.sendRedirect(loginPage);
+			RequestDispatcher dispatcher = request.getRequestDispatcher(loginPage);
+		     dispatcher.forward(request, response);
+
 			return false;
 		}
 		return true;
