@@ -88,11 +88,10 @@ html, body, h1, h2, h3, h4, h5, h6 {
 
 	<!-- Header with full-height image -->
 	<header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
-	<div class="w3-display-left w3-text-white w3-center"
-		style="padding: 48px">
-		<span class="w3-jumbo w3-hide-small">Welcome to Play</span><br>
+	<div class="w3-display-middle w3-text-white w3-center">
+		<span class="w3-jumbo w3-hide-small">Welcome ${sessionScope.userId }님!</span><br>
 		<span class="w3-xxlarge w3-hide-large w3-hide-medium">Welcome
-			to Play</span><br> <span class="w3-large">Stop wasting valuable
+			${sessionScope.userId }님!</span><br> <span class="w3-large">Stop wasting valuable
 			time with projects that just isn't you.</span>
 		<p>
 			<a href="#about"
@@ -143,7 +142,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 						<span class="w3-opacity">${boardVO.writedate}</span>
 						<h3 class="w3-text-teal">
 							<a
-								href="http://localhost:8080/board/article?bidx=${boardVO.bidx}"
+								href="/board/article?bidx=${boardVO.bidx}"
 								class="notice">${boardVO.title}</a>
 						</h3>
 						<span class="w3-opacity">${boardVO.userId} &ensp; category
@@ -152,7 +151,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 							${contents}
 							<c:if test="${result }">
 								<a
-									href="http://localhost:8080/board/article?bidx=${boardVO.bidx}"
+									href="/board/article?bidx=${boardVO.bidx}"
 									class="w3-text-teal notice">&ensp;....more</a>
 							</c:if>
 						</p>

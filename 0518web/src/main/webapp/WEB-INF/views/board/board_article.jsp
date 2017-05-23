@@ -53,7 +53,7 @@ body, html {
 			<p>
 				${contents}
 				<c:if test="${result }">
-				<a href="#" class="w3-text-teal notice">&ensp;....more</a>
+					<a href="#" class="w3-text-teal notice">&ensp;....more</a>
 				</c:if>
 			</p>
 		</div>
@@ -65,9 +65,24 @@ body, html {
 
 	<div class="w3-margin-left">
 		<p>
-			<button class="w3-button w3-padding-large w3-grey w3-border" onclick="location.href='/board/list#notice' ">
+			<button class="w3-button w3-padding-large w3-khaki w3-border"
+				onclick="location.href='/board/list#notice' ">
 				<b>Back to List »</b>
 			</button>
+
+			<c:choose>
+				<c:when test="${ sessionScope.userId eq boardVO.userId}">
+					<button class="w3-button w3-padding-large w3-green w3-border"
+						onclick="location.href='/board/edit' ">
+						<b>Edit »</b>
+					</button>
+					<button class="w3-button w3-padding-large w3-red w3-border"
+						onclick="location.href='/board/delete' ">
+						<b>Delete »</b>
+					</button>
+				</c:when>
+			</c:choose>
+
 		</p>
 	</div>
 

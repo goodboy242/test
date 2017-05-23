@@ -31,7 +31,7 @@ SELECT BIDX, TITLE, CONTENTS, USERID, HITCNT, WRITEDATE FROM TB_BOARD_DEMO WHERE
 
 	<update id="updateHitcount">
 		<![CDATA[
-UPDATE TB_BOARD_DEMO SET HITCNT = HITCNT+1 WHERE bidx = #{bidx} and userid = #{userId}
+UPDATE TB_BOARD_DEMO SET HITCNT = HITCNT+1 WHERE bidx = #{bidx}
 	]]>
 	</update>
 
@@ -41,7 +41,11 @@ UPDATE TB_BOARD_DEMO SET TITLE=#{title}, CONTENTS=#{contents}, MODDATE=SYSDATE W
 	]]>
 	</update>
 
-
+	<select id="boardCount" resultType="integer">
+		<![CDATA[
+SELECT COUNT(*) as count FROM TB_BOARD_DEMO 
+	]]>
+	</select>
 
 </mapper>
   

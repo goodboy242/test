@@ -15,4 +15,5 @@ public interface IBoardDAO {
 	public void updateHitcount(String bidx) throws SQLException ;
 	public int boardModify(HashMap<String, String> hashMap) throws SQLException ;
 	
+	public int countArticle() throws SQLException;
 }

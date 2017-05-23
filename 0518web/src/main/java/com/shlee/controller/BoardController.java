@@ -45,7 +45,7 @@ public class BoardController {
 		BoardVO boardVO = boardService.boardContents(bidx);
 		System.out.println(boardVO);
 		model.addAttribute("boardVO", boardVO);
-		return  boardFolder+"board_article";
+		return  boardFolder+"board_article2";
 	}
 
 	@RequestMapping(value = "/board/write", method = RequestMethod.GET)

@@ -47,6 +47,7 @@ public class BoardDAOImpl implements IBoardDAO {
 
 	@Override
 	public void updateHitcount(String bidx) throws SQLException {
+		
 		SqlSession.delete(Namespace+".updateHitcount", bidx);	
 	}
 
@@ -54,6 +55,12 @@ public class BoardDAOImpl implements IBoardDAO {
 	public int boardModify(HashMap<String, String> hashMap) throws SQLException {
 
 		return SqlSession.update(Namespace+".boardModify", hashMap);		
+	}
+	
+	@Override
+	public int countArticle() throws SQLException{
+		
+		return SqlSession.selectOne(Namespace+".boardCount");		
 	}
 
 
