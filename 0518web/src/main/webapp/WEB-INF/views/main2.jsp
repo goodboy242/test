@@ -142,7 +142,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 						<span class="w3-opacity">${boardVO.writedate}</span>
 						<h3 class="w3-text-teal">
 							<a
-								href="/board/article?bidx=${boardVO.bidx}"
+								href="/board/article/${boardVO.bidx}"
 								class="notice">${boardVO.title}</a>
 						</h3>
 						<span class="w3-opacity">${boardVO.userId} &ensp; category
@@ -151,7 +151,7 @@ html, body, h1, h2, h3, h4, h5, h6 {
 							${contents}
 							<c:if test="${result }">
 								<a
-									href="/board/article?bidx=${boardVO.bidx}"
+									href="/board/article/${boardVO.bidx}"
 									class="w3-text-teal notice">&ensp;....more</a>
 							</c:if>
 						</p>

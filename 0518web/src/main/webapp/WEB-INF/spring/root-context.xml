@@ -1,39 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
-		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl" />
+		<property name="url"
+			value="jdbc:log4jdbc:oracle:thin:@localhost:1521:orcl" />
 		<property name="username" value="lsh" />
 		<property name="password" value="lsh" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"></property>
-		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:/mapper/**/*Mapper.xml"></property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:/mapper/**/*Mapper.xml" />
 	</bean>
 
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate"
 		destroy-method="clearCache">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory">
+		</constructor-arg>
 	</bean>
 
-	<!-- base-package를 기준으로 모든 하위 패키지 안에 있ㄴ는 클래스를 자동으로 Bean 등록 -->
-	<!-- 단, @Repository 나 @Service 등 Annotation이 붙은 클래스만 등록 -->
-	<context:component-scan base-package="com.shlee.dao"></context:component-scan>
-	<context:component-scan base-package="com.shlee.service"></context:component-scan>
+	<!-- 트랜젝션매니저 정의 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- @Transactional 어노테이션 검색 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<context:component-scan base-package="com.shlee.web.dao" />
+	<context:component-scan base-package="com.shlee.web.service" />
+	<context:component-scan base-package="com.shlee.web.exception" />
+
+	<!-- aop 설정하기 -->
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<context:component-scan base-package="com.shlee.web.aop"></context:component-scan>
+
+ <!--  
+ 
+ <aop:config>
+	<aop:pointcut id="serviceOperation" expression="execution(* com.shlee.web.service.board..*(..))"/>
+<aop:advisor id="transactionAdvisor" pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
+</aop:config>
+<tx:advice id="txAdvice" transaction-manager="transactionManager">
+<tx:attributes>
+	<tx:method name= "boardArticle" rollback-for="com.shlee.web.exception.NoArticleException"/> 
+</tx:attributes>
+ 
+ 
+  -->
+
 
 
 </beans>

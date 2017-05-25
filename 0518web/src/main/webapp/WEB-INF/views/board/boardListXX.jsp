@@ -49,7 +49,7 @@ body, html {
 						<span class="w3-opacity">${boardVO.writedate}</span>
 						<h3 class="w3-text-teal">
 							<a
-								href="http://localhost:8080/board/article?bidx=${boardVO.bidx}"
+								href="../board/article/${boardVO.bidx}"
 								class="notice">${boardVO.title}</a>
 						</h3>
 						<span class="w3-opacity">${boardVO.userId} &ensp; category
@@ -58,7 +58,7 @@ body, html {
 							${contents}
 							<c:if test="${result }">
 								<a
-									href="http://localhost:8080/board/article?bidx=${boardVO.bidx}"
+									href="../board/article/${boardVO.bidx}"
 									class="w3-text-teal notice">&ensp;....more</a>
 							</c:if>
 						</p>

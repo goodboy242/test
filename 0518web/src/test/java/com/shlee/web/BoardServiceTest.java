@@ -11,8 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.shlee.domain.board.BoardVO;
-import com.shlee.service.IBoardService;
+import com.shlee.web.domain.board.BoardVO;
+import com.shlee.web.exception.NoArticleException;
+import com.shlee.web.service.IBoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = ("file:src/main/webapp/WEB-INF/spring/root-context.xml"))
@@ -45,7 +46,7 @@ public class BoardServiceTest {
 	}
 	
 	@Test
-	public void testBoardContents() throws SQLException {
+	public void testBoardContents() throws SQLException, NoArticleException {
 		
 		System.out.println(boardService.boardContents("43"));
 	}

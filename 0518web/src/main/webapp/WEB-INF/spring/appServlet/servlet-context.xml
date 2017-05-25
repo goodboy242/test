@@ -21,7 +21,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.shlee.controller" />
+	<context:component-scan base-package="com.shlee.web.controller" />
 	
 				<interceptors>
 				<interceptor>
@@ -30,14 +30,14 @@
 					<!-- <exclude-mapping path=""/> 인터셉터가 제외될 url 설정-->
 					
 					<!-- 인터셉터 구현 객체(Bean)등록 -->
-					<beans:bean class="com.shlee.interceptor.LoginCheckInterceptor"/>
+					<beans:bean class="com.shlee.web.interceptor.LoginCheckInterceptor"/>
 					
 					<!-- 외부에 존재하는 bean의 id를 이용하여 인터셉터 bean 등록 -->
 					<!-- <beans:ref bean="testInterceptor"/> -->
 				</interceptor>
 				<interceptor>
 					<mapping path="/loginchk"/>
-					<beans:bean class="com.shlee.interceptor.SetLoginSessionInterceptor"/>
+					<beans:bean class="com.shlee.web.interceptor.SetLoginSessionInterceptor"/>
 				</interceptor>
 			</interceptors>
 	

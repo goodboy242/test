@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.shlee.dao.IUserDAO;
-import com.shlee.domain.UserVO;
+import com.shlee.web.dao.IUserDAO;
+import com.shlee.web.domain.UserVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = ("file:src/main/webapp/WEB-INF/spring/root-context.xml"))
@@ -42,6 +42,14 @@ public class UserDAOTest {
 		hashMap.put("userPw", "lsh");
 		
 		System.out.println(userDao.loginUser(hashMap));
+	}
+	
+	@Test
+	public void testCheckDuplication(){
+		HashMap<String,String> hashMap = new HashMap<>();
+		hashMap.put("userId", "lsh");
+		System.out.println("***");
+		System.out.println(userDao.checkDuplication(hashMap));
 	}
 	
 }
